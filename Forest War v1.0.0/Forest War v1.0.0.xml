@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map proto="1.3.3">
+  <name>Forest War</name>
+  <version>1.0.0</version>
+  <objective>全コントロールポイントの制圧/Regardless conquered all the control points.</objective>
+  <authors>
+    <author>_lce_</author>
+  </authors>
+  <teams>
+    <team color="blue" max="32">Blue Team</team>
+    <team color="dark red" max="32">Red Team</team>
+  </teams>
+  <kits>
+    <kit name="spawn">
+      <item slot="0">stone sword</item>
+      <item slot="1">bow</item>
+      <item slot="2" enchantment="dig_speed:3">diamond pickaxe</item>
+      <item slot="3" enchantment="dig_speed:3">iron axe</item>
+      <item slot="4" enchantment="dig_speed:3">iron spade</item>
+      <item slot="5" amount="64">cooked chicken</item>
+      <item slot="6" amount="64">glass</item>
+      <item slot="7" amount="32">log</item>
+      <item slot="9" amount="32">arrow</item>
+      <helmet bind="true">leather helmet</helmet>
+    </kit>
+    <kit name="red" parents="spawn">
+      <chestplate color="cd0000" damage="-3000" bind="true">leather chestplate</chestplate>
+      <leggings color="cd0000" damage="-3000" bind="true">leather leggings</leggings>
+      <boots color="cd0000" damage="-3000" bind="true">leather boots</boots>
+    </kit>
+    <kit name="blue" parents="spawn">
+      <chestplate color="0066cc" damage="-3000" bind="true">leather chestplate</chestplate>
+      <leggings color="0066cc" damage="-3000" bind="true">leather leggings</leggings>
+      <boots color="0066cc" damage="-3000" bind="true">leather boots</boots>
+    </kit>
+  </kits>
+  <killreward>
+    <item amount="1">golden apple</item>
+    <item amount="1">diamond</item>
+    <item amount="16">arrow</item>
+  </killreward>
+  <itemremove>
+    <item>diamond sword</item>
+    <item>iron sword</item>
+    <item>stone sword</item>
+    <item>bow</item>
+    <item>iron spade</item>
+    <item>iron axe</item>
+    <item>diamond pickaxe</item>
+    <item>arrow</item>
+    <item>diamond helmet</item>
+    <item>iron helmet</item>
+    <item>diamond chestplate</item>
+    <item>iron chestplate</item>
+    <item>diamond leggings</item>
+    <item>iron leggings</item>
+    <item>diamond boots</item>
+    <item>iron boots</item>
+    <item>log</item>
+    <item>5</item>
+    <item>glass</item>
+    <item>cooked chicken</item>
+    <item>diamond block</item>
+    <item>diamond</item>
+    <item>iron block</item>
+    <item>iron ingot</item>
+  </itemremove>
+  <shops>
+    <shop name="Arrow">
+      <item price="diamond,1" slot="5">arrow,64</item>
+    </shop>
+    <shop name="TNT">
+      <item price="diamond,2" slot="5">tnt</item>
+    </shop>
+    <shop name="Beacon">
+      <item price="diamond,32" slot="5">beacon</item>
+    </shop>
+    <shop name="Golden Apple">
+      <item price="diamond,64" damage="1" slot="5">golden apple</item>
+    </shop>
+  </shops>
+  <spawns>
+    <spawn team="blue" yaw="-180" kit="blue">
+      <cuboid min="-102,10,46" max="-102,10,46" />
+    </spawn>
+    <spawn team="red" yaw="0" kit="red">
+      <cuboid min="102,10,-46" max="102,10,-46" />
+    </spawn>
+    <default yaw="180">
+      <cuboid min="0,60,70" max="0,60,70" />
+    </default>
+  </spawns>
+  <filters>
+    <filter name="only-blue" parents="deny-players deny-world">
+      <allow>
+        <team>blue</team>
+      </allow>
+    </filter>
+    <filter name="only-red" parents="deny-players deny-world">
+      <allow>
+        <team>red</team>
+      </allow>
+    </filter>
+    <filter name="allow-tnt" parents="deny-all">
+      <allow>
+        <block>tnt</block>
+      </allow>
+    </filter>
+  </filters>
+  <regions>
+    <apply block="deny-all" message="範囲外です、ここにブロックを置けません/Range can not be edited">
+      <rectangle min="-127,0,-52" max="127,40,52" />
+    </apply>
+    <apply enter="only-blue" message="敵陣本拠地に入れません/You may not enter the enemy team's base">
+      <rectangle min="96,-47" max="108,-26" />
+      <rectangle min="92,-32" max="95,-26" />
+      <rectangle min="109,-32" max="112,-26" />
+    </apply>
+    <apply enter="only-red" message="敵軍本拠地に入れません/You may not enter the enemy team's base">
+      <rectangle min="-108,26" max="-96,47" />
+      <rectangle min="-95,26" max="-92,32" />
+      <rectangle min="-112,26" max="-109,32" />
+    </apply>
+    <apply block="deny-all" message="本拠地周辺の編集は出来ません。/Can not edit">
+      <rectangle min="96,-47" max="108,-26" />
+      <rectangle min="92,-32" max="95,-26" />
+      <rectangle min="109,-32" max="112,-26" />
+      <rectangle min="-108,26" max="-96,47" />
+      <rectangle min="-95,26" max="-92,32" />
+      <rectangle min="-112,26" max="-109,32" />
+    </apply>
+- <apply block="deny-all" block-place="allow-tnt" message="コントロールポイントの編集は出来ません/You can not edit of peripheral control point.">
+      <cuboid min="-87,9,-21" max="-81,13,-15" />
+      <cuboid min="-3,9,-3" max="3,13,3" />
+      <cuboid min="81,9,15" max="87,13,21" />
+    </apply>
+  </regions>
+  <controlpoints capture-limit="3">
+    <controlpoint name="CentralFortress">
+      <capture>
+        <cuboid min="-3,10,-3" max="3,14,3" />
+      </capture>
+      <flag>
+        <cuboid min="-2,9,-2" max="2,9,2" />
+      </flag>
+    </controlpoint>
+    <controlpoint name="BlueFortress">
+      <capture>
+        <cuboid min="-87,10,-21" max="-81,14,-15" />
+      </capture>
+      <flag>
+        <cuboid min="-86,9,-20" max="-82,9,-16" />
+      </flag>
+    </controlpoint>
+    <controlpoint name="RedFortress">
+      <capture>
+        <cuboid min="81,10,15" max="87,14,21" />
+      </capture>
+      <flag>
+        <cuboid min="82,9,16" max="86,9,20" />
+      </flag>
+    </controlpoint>
+  </controlpoints>
+  <renewables>
+    <renewable rate="3" particles="true" sound="true" avoid-entities="true">
+      <region>
+        <cuboid min="-125,0,-50" max="125,40,50" />
+      </region>
+      <renew>iron block</renew>
+      <replace>air</replace>
+    </renewable>
+  </renewables>
+  <maxbuildheight>35</maxbuildheight>
+  <tnt>
+    <blockdamage>off</blockdamage>
+    <instantignite>on</instantignite>
+  </tnt>
+  <autorespawn time="10s" />
+  <include src="tutorial.xml" />
+  <tutorial>
+    <stage title="Control Point(CP)">
+      <message>
+        <line>This map is a `a`lControl point `r(CP) map.</line>
+        <line>To overwhelm the control point is the purpose.</line>
+      </message>
+      <message lang="ja_JP">
+        <line>このマップは`a`lControl point `r(CP)マップです。</line>
+        <line>コントロールポイントの制圧が目的です。</line>
+      </message>
+    </stage>
+    <stage title="Control point">
+      <title lang="ja_JP">コントロールポイント</title>
+      <message>
+        <line>This is BlueFortress</line>
+      </message>
+      <message lang="ja_JP">
+        <line>ここは、BlueFortressです。</line>
+      </message>
+      <teleport>
+        <point yaw="-138" pitch="-20">-76,18,-9</point>
+      </teleport>
+    </stage>
+    <stage title="Control point">
+      <title lang="ja_JP">コントロールポイント</title>
+      <message>
+        <line>This is RedFortress</line>
+      </message>
+      <message lang="ja_JP">
+        <line>ここは、RedFortressです。</line>
+      </message>
+      <teleport>
+        <point yaw="41" pitch="20">76,18,9</point>
+      </teleport>
+    </stage>
+    <stage title="Control point">
+      <title lang="ja_JP">コントロールポイント</title>
+      <message>
+        <line>This is CentralFortress</line>
+      </message>
+      <message lang="ja_JP">
+        <line>ここは、CentralFortressです。</line>
+      </message>
+      <teleport>
+        <point yaw="0" pitch="-90">0,18,0</point>
+      </teleport>
+    </stage>
+    <stage title="Iron Mine">
+      <title lang="ja_JP">鉄鉱山</title>
+      <message>
+        <line>Here is the iron mine.</line>
+        <line>Iron block of iron mine is resurrected.</line>
+      </message>
+      <message lang="ja_JP">
+        <line>ここは鉄鉱山です。</line>
+        <line>ここの鉄鉱山の鉄ブロックは復活します。</line>
+      </message>
+      <teleport>
+        <point yaw="140" pitch="0">117,10,-30</point>
+      </teleport>
+    </stage>
+  </tutorial>
+</map>
